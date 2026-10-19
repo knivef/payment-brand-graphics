@@ -23,7 +23,7 @@ skills/payment-brand-editorial-graphics/
 
 ## Brands
 
-Zepapay (default), Secure Payment Services, Sepa Mint, Offrampr, Ape Card, Pure Labs, AltPay, Swipe Wire Pay, Card Payz, Fiat Pay, Onrampr. Only Zepapay and Secure Payment Services hold a licence (UAE PSP); the skill blocks licence wording for every other brand.
+ZepaPay (default), Secure Payment Services, Sepa Mint, Offrampr, Ape Card, Pure Labs, AltPay, Swipe Wire Pay, Card Payz, Fiat Pay, Onrampr. Only ZepaPay and Secure Payment Services hold a licence (UAE PSP); the skill blocks licence wording for every other brand.
 
 ## Updating brands
 

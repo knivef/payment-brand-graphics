@@ -11,6 +11,15 @@ from pathlib import Path
 
 PAGE = (0xf7, 0xf7, 0xf7)
 
+# Display casing that differs from the wireframe repo. Applied to names and to free text.
+NAME_OVERRIDES = {'Zepapay': 'ZepaPay'}
+
+def fix(s):
+    if isinstance(s, str):
+        for old, new in NAME_OVERRIDES.items():
+            s = s.replace(old, new)
+    return s
+
 def lum(rgb):
     def c(v):
         v /= 255
@@ -43,11 +52,11 @@ def main(repo):
     for p in pages:
         b = book.get(p.get('book_key', p['name']), {})
         out.append({
-            'slug': p['slug'], 'name': p['name'], 'mark': p['mark'], 'domain': p['domain'],
+            'slug': p['slug'], 'name': fix(p['name']), 'mark': p['mark'], 'domain': p['domain'],
             'accent': p['accent'], 'accent_fg': p['accent_fg'], 'accent_ink': ink(p['accent']),
-            'tagline': p.get('tagline', ''),
+            'tagline': fix(p.get('tagline', '')),
             'licence': b.get('licence') or 'None', 'status': b.get('status'), 'type': b.get('type'),
-            'sells': b.get('sells'),
+            'sells': fix(b.get('sells')),
         })
     dest = Path(__file__).resolve().parent.parent / 'brands.json'
     dest.write_text(json.dumps({'_source': 'knivef/payment-brand-wireframes data/pages.json + data/brand-book.json',

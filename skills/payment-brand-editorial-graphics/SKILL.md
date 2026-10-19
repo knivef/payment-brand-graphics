@@ -1,11 +1,11 @@
 ---
 name: "payment-brand-editorial-graphics"
-description: "Create light editorial social graphics for Zepapay (ZepaPay) and the other payment brands (Secure Payment Services, AltPay, Sepa Mint, Offrampr, Onrampr, Ape Card, Pure Labs, Swipe Wire Pay, Card Payz, Fiat Pay): stats, screenshots in a Mac window over a public domain painting, cloudy sky or anime-style sky with pastel halftone filter, in each brand's accent colour and with its licence rules, for LinkedIn, X and carousels."
+description: "Create light editorial social graphics for ZepaPay and the other payment brands (Secure Payment Services, AltPay, Sepa Mint, Offrampr, Onrampr, Ape Card, Pure Labs, Swipe Wire Pay, Card Payz, Fiat Pay): stats, screenshots in a Mac window over a public domain painting, cloudy sky or anime-style sky with pastel halftone filter, in each brand's accent colour and with its licence rules, for LinkedIn, X and carousels."
 ---
 
 # Payment brand editorial graphics
 
-A brand-aware clone of `light-editorial-graphics` (knivef/creatives). Same look, same steps, but every slide is made for one payment brand: its accent colour, its wordmark, its domain, and its licence and claims rules. Zepapay is the default brand when the request only says "payments" or names no brand.
+A brand-aware clone of `light-editorial-graphics` (knivef/creatives). Same look, same steps, but every slide is made for one payment brand: its accent colour, its wordmark, its domain, and its licence and claims rules. ZepaPay is the default brand when the request only says "payments" or names no brand.
 
 Use this to make kvn's "light editorial" style images for a payment brand: off-white page with thin grid lines, a dark headline, white stat cards, and a background panel (a public domain painting, a cloud and sky photo, or an anime-style sky, all with a pastel halftone filter) holding a macOS-style window that shows a screenshot or chart. Built as HTML, rendered to PNG/JPG with Playwright.
 
@@ -21,12 +21,12 @@ It prints the brand record and writes `tokens.css`, `wordmark_black.svg`, `wordm
 
 | Field | Use |
 |---|---|
-| `name` | Exact display casing. The brand book writes "Zepapay"; if the user writes "ZepaPay", ask once which one ships and use it on every slide. |
+| `name` | Exact display casing, used on every slide. ZepaPay is always "ZepaPay" (capital P), even though the brand book and wireframe repo write it with a lowercase p. `scripts/sync_brands.py` keeps this casing on every re-sync. |
 | `mark` | 2 to 3 letter monogram for the fallback wordmark and tight spaces. |
 | `domain` | Footer, next to the source line (e.g. `zepapay.com`). |
 | `accent` | Brand colour as a fill: stat underline bar, first stat dot, wordmark tile, swipe chevron. |
 | `accent_fg` | Text placed on an `accent` fill. |
-| `accent_ink` | The accent darkened to read on the light page (4.5:1 on `#f7f7f7`). Use it for any accent coloured text or thin lines. Never set text in raw `accent` on the light page: Zepapay green, Ape Card yellow and Card Payz lime all fail. |
+| `accent_ink` | The accent darkened to read on the light page (4.5:1 on `#f7f7f7`). Use it for any accent coloured text or thin lines. Never set text in raw `accent` on the light page: ZepaPay green, Ape Card yellow and Card Payz lime all fail. |
 | `licence` | What the brand may claim. See "Licence and claims" below. |
 | `status`, `type` | `Idea` brands have no live product: ask before making public graphics for one. `Burnable` and `Permanent` brands must never appear together on one slide or carousel. |
 
@@ -36,7 +36,7 @@ A brand not in `brands.json` (e.g. NexFlow, or any brand-book idea without a pag
 
 ## Licence and claims (binding)
 
-- Only **Zepapay** and **Secure Payment Services** hold a licence: a UAE payment service provider (PSP) licence. Their slides may say "Licensed UAE payment service provider". NexFlow holds a Canadian MSB licence.
+- Only **ZepaPay** and **Secure Payment Services** hold a licence: a UAE payment service provider (PSP) licence. Their slides may say "Licensed UAE payment service provider". NexFlow holds a Canadian MSB licence.
 - **Every other brand holds no licence.** Its slides must never state or imply one: no "licensed", "regulated", "authorised", "compliant", "bank-grade", regulator names or licence numbers. A partner structure can be described only with words the user supplies.
 - Numbers (fees, limits, volumes, settlement times, corridors) come only from the user, their screenshots, or the brand's live page copy, and the user confirms them before export. The internal brand book price lists are not public: never put a rate card or margin on a graphic unless the user says that rate is public.
 - Anything still in `[BRACKETS]` or `[CONFIRM: ...]` in the brand's page copy is unverified and never goes on a slide.
@@ -46,7 +46,7 @@ A brand not in `brands.json` (e.g. NexFlow, or any brand-book idea without a pag
 ## Before starting
 
 Confirm (or infer from context and state the assumption):
-0. Brand (from `brands.json`, see Step 0). Default: Zepapay.
+0. Brand (from `brands.json`, see Step 0). Default: ZepaPay.
 1. Format: 1080x1080 square (single-image posts), 1080x1350 portrait (default for LinkedIn multi-image albums, see "Feed cropping" below), or 1500x600 (X Article banner, 5:2).
 2. Background style. When the user asks which background to use, or hasn't said, offer these options with a one-line pitch each and a recommendation for the post:
    - **Painting:** public domain landscape (Monet, Cezanne, Renoir). Classic, gallery feel, works for "the story" and founder posts.
@@ -106,7 +106,7 @@ Seen in a real post: the eyebrow "30 days on Reddit" became "days on Reddit", th
 - Cover slide = the aggregate story (totals, the headline claim). Following slides = one item each, in chronological order, so the carousel reads as a narrative.
 - Each slide's headline names the moment ("Post 1: The launch"), and the sub line says what happened or what was learned, in one sentence.
 - The screenshot is the receipt. The stat card repeats its key numbers in large type so the slide reads at thumbnail size.
-- Footer source line names where the numbers come from ("Source: Zepapay dashboard, Sept 2026" or "Source: Reddit Post Insights").
+- Footer source line names where the numbers come from ("Source: ZepaPay dashboard, Sept 2026" or "Source: Reddit Post Insights").
 
 **What to leave out**
 - Respect what the user wants hidden: post titles, subreddit names, usernames, comment threads, avatars, NSFW tags, private dashboards.
@@ -310,8 +310,8 @@ Structure per slide:
 - Header: small eyebrow (e.g. "Settled this quarter" or "30 days on Reddit" + "1 / 4" page count), headline 52px weight 650 letter-spacing -0.035em, sub line 22px muted.
 - Stat card: white, 3 cells split by 1px borders, each with a colored dot + label (17px muted) and a value (38px weight 600). First cell gets a 3px `var(--accent)` bottom bar. Uppercase 14px label above each row when there are two rows.
 - Panel: `flex:1`, radius 10px, `background:url(paintN.jpg) center/cover`, padding 16 to 26px, centers the window.
-- Window: radius 12px, shadow `0 24px 60px -10px rgba(30,20,40,.45), 0 0 0 1px rgba(0,0,0,.12)`, 44px light title bar (`linear-gradient(#f1f1f1,#e6e6e6)`) with red/yellow/green 13px dots (`#ff5f57 #febc2e #28c840`) and a centered 16px title naming the source (e.g. "Zepapay · Settlements" or "Reddit · Post Insights"). Content: the screenshot crop `img{width:100%}` with compact rows below.
-- Footer: logo or wordmark (black, ~36px tall) left, source line and domain right (e.g. "Source: Zepapay dashboard · zepapay.com"), both inside the safe zone.
+- Window: radius 12px, shadow `0 24px 60px -10px rgba(30,20,40,.45), 0 0 0 1px rgba(0,0,0,.12)`, 44px light title bar (`linear-gradient(#f1f1f1,#e6e6e6)`) with red/yellow/green 13px dots (`#ff5f57 #febc2e #28c840`) and a centered 16px title naming the source (e.g. "ZepaPay · Settlements" or "Reddit · Post Insights"). Content: the screenshot crop `img{width:100%}` with compact rows below.
+- Footer: logo or wordmark (black, ~36px tall) left, source line and domain right (e.g. "Source: ZepaPay dashboard · zepapay.com"), both inside the safe zone.
 - Avoid CSS class name collisions (e.g. don't reuse `.t` for both the window title and stat tiles).
 
 For 1080x1350, use the same template with larger type (headline 64px, stat values 50px, sub 27px). For the 1500x600 banner: text block left (eyebrow, 58px headline, stat chips), painted panel with window on the right ~640px wide, logo bottom left, same grid lines and diamonds.

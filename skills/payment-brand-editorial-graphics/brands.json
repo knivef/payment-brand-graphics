@@ -3,7 +3,7 @@
   "brands": [
     {
       "slug": "zepapay",
-      "name": "Zepapay",
+      "name": "ZepaPay",
       "mark": "ZP",
       "domain": "zepapay.com",
       "accent": "#2ee07a",
@@ -69,7 +69,7 @@
       "licence": "None",
       "status": "Idea",
       "type": "Permanent",
-      "sells": "Selling Crypto Cards via Zepapay"
+      "sells": "Selling Crypto Cards via ZepaPay"
     },
     {
       "slug": "pure-labs",
