@@ -3,7 +3,7 @@
 Usage: python3 brand_kit.py <slug or name> [out_dir]
 
 Writes:
-  tokens.css          :root custom properties for the slide template
+  tokens.css          light and dark custom properties for every template
   wordmark_black.svg  mark tile (accent) + name in ink, for the light page
   wordmark_white.svg  same, name in white, for dark panels
   mark.svg            the mark tile alone (avatars, favicons, tight corners)
@@ -38,9 +38,15 @@ def main(key, out='.'):
     b, out = find(key), Path(out)
     out.mkdir(parents=True, exist_ok=True)
     (out / 'tokens.css').write_text(
-        ':root{\n  --page:#f7f7f7; --ink:#111; --muted:#6b6b6b; --line:#e4e4e4; --card-border:#e3e3e3;\n'
+        '/* Light is the default. Put data-theme="dark" on <html> for dark mode. */\n'
+        ':root{\n  --page:#f7f7f7; --ink:#111; --muted:#6b6b6b; --line:#e4e4e4; --card:#fff; --card-border:#e3e3e3;\n'
+        '  --card-alt:#eef0f4; --card-alt-ink:#111; --chrome:linear-gradient(#f1f1f1,#e6e6e6); --chrome-ink:#555;\n'
         f'  --accent:{b["accent"]}; --accent-fg:{b["accent_fg"]}; --accent-ink:{b["accent_ink"]};\n'
-        '  --dot-2:#111; --dot-3:#9a9a9a;\n}\n')
+        '  --dot-2:#111; --dot-3:#9a9a9a;\n}\n'
+        '[data-theme="dark"]{\n  --page:#0f0f10; --ink:#f5f5f5; --muted:#9a9a9e; --line:#26262a; --card:#1c1c1f; --card-border:#2a2a2e;\n'
+        '  --card-alt:#f2f2f2; --card-alt-ink:#111; --chrome:linear-gradient(#2c2c30,#232327); --chrome-ink:#b5b5b9;\n'
+        f'  --accent-ink:{b["accent_ink_dark"]};\n'
+        '  --dot-2:#f5f5f5; --dot-3:#6b6b70;\n}\n')
     (out / 'wordmark_black.svg').write_text(wordmark(b, '#111111'))
     (out / 'wordmark_white.svg').write_text(wordmark(b, '#ffffff'))
     (out / 'mark.svg').write_text(f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56 56" height="56">{tile(b)}</svg>\n')

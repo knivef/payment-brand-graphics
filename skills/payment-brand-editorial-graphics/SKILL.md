@@ -1,13 +1,29 @@
 ---
 name: "payment-brand-editorial-graphics"
-description: "Create light editorial social graphics for ZepaPay and the other payment brands (Secure Payment Services, AltPay, Sepa Mint, Offrampr, Onrampr, Ape Card, Pure Labs, Swipe Wire Pay, Card Payz, Fiat Pay): stats, screenshots in a Mac window over a public domain painting, cloudy sky or anime-style sky with pastel halftone filter, in each brand's accent colour and with its licence rules, for LinkedIn, X and carousels."
+description: "Create editorial social graphics and sales collateral (one-pagers, rate cards, terms decks) in light or dark mode for ZepaPay and the other payment brands (Secure Payment Services, AltPay, Sepa Mint, Offrampr, Onrampr, Ape Card, Pure Labs, Swipe Wire Pay, Card Payz, Fiat Pay): stats, screenshots in a Mac window over a public domain painting, cloudy sky, anime-style sky or abstract brand shapes, bento benefit grids, fee tables, in each brand's accent colour and with its licence rules, for LinkedIn, X, carousels, PDFs and Telegram sends."
 ---
 
 # Payment brand editorial graphics
 
 A brand-aware clone of `light-editorial-graphics` (knivef/creatives). Same look, same steps, but every slide is made for one payment brand: its accent colour, its wordmark, its domain, and its licence and claims rules. ZepaPay is the default brand when the request only says "payments" or names no brand.
 
-Use this to make kvn's "light editorial" style images for a payment brand: off-white page with thin grid lines, a dark headline, white stat cards, and a background panel (a public domain painting, a cloud and sky photo, or an anime-style sky, all with a pastel halftone filter) holding a macOS-style window that shows a screenshot or chart. Built as HTML, rendered to PNG/JPG with Playwright.
+Use this to make kvn's "editorial" style images for a payment brand: a page with thin grid lines, a headline, stat cards, and a background panel (a public domain painting, a cloud and sky photo, or an anime-style sky, all with a pastel halftone filter) holding a macOS-style window that shows a screenshot or chart. It also makes sales collateral (one-pagers, rate cards and terms decks, see "Collateral"). Everything comes in light or dark mode. Built as HTML, rendered to PNG/JPG/PDF with `scripts/render.py`.
+
+## Ask first (always, before generating anything)
+
+Before writing any HTML or rendering anything, ask these in one AskUserQuestion call, even when the request seems to answer them. Mark a recommendation as the first option. If one was clearly answered in the request, keep that answer as the recommended option rather than skipping the question.
+
+1. **Output:** social slides (square, portrait or banner) / one-pager (A4 portrait) / rate card (9:16 portrait) / terms deck (16:9).
+2. **Mode:** light / dark. Recommend light for LinkedIn feed posts and for rate cards (printable, tables read better). Recommend dark for one-pagers and decks sent on Telegram or shown on a screen.
+3. **Design direction:**
+   - **Follow the skill:** the editorial house style. Grid guide lines and diamonds, hairline-bordered white (or dark) cards, small uppercase section labels, accent only as an underline bar or rule, halftone background panels.
+   - **New design cues:** the collateral look described in "Collateral". Flat filled bento tiles in two alternating tones, large plain section headings, an accent CTA band, a hand-drawn accent underline on the key word, art panels inside tiles. Use this only when the user picks it.
+   Never mix the two in one piece of work.
+4. **Background:** painting / clouds and sky / anime sky / abstract brand shapes (generated in CSS from the accent, no image needed) / flat (no image, just a tint of the accent). One line each with a recommendation. Abstract shapes and flat are available for collateral and for social slides.
+
+When the background is painting, clouds or anime sky, follow up with a second short question for the overlay (halftone dots, text texture or none) and its intensity, as described in "Before starting".
+
+Only then set `data-theme` and `data-cues` on `<html>` (or pass `--theme` and `--cues` to `render.py`) and start building.
 
 ## Step 0: Pick the brand
 
@@ -39,19 +55,23 @@ A brand not in `brands.json` (e.g. NexFlow, or any brand-book idea without a pag
 - Only **ZepaPay** and **Secure Payment Services** hold a licence: a UAE payment service provider (PSP) licence. Their slides may say "Licensed UAE payment service provider". NexFlow holds a Canadian MSB licence.
 - **Every other brand holds no licence.** Its slides must never state or imply one: no "licensed", "regulated", "authorised", "compliant", "bank-grade", regulator names or licence numbers. A partner structure can be described only with words the user supplies.
 - Numbers (fees, limits, volumes, settlement times, corridors) come only from the user, their screenshots, or the brand's live page copy, and the user confirms them before export. The internal brand book price lists are not public: never put a rate card or margin on a graphic unless the user says that rate is public.
+- Rate cards and terms decks are sent privately to prospects, not posted. They may use a brand book price list only when the user names the list and confirms the numbers. Label them "Indicative" with a footnote that the written agreement is binding, and never reuse them as a public social post.
+- Contact slides: names, emails, photos and QR codes only from the user. Never invent a person or copy one from a reference document.
 - Anything still in `[BRACKETS]` or `[CONFIRM: ...]` in the brand's page copy is unverified and never goes on a slide.
 - Never name banks, acquirers, partners or clients unless the user says they are public.
 - If the request conflicts with any of this, stop and ask instead of softening the wording.
 
 ## Before starting
 
-Confirm (or infer from context and state the assumption):
+The four "Ask first" answers come first. Then confirm (or infer from context and state the assumption):
 0. Brand (from `brands.json`, see Step 0). Default: ZepaPay.
 1. Format: 1080x1080 square (single-image posts), 1080x1350 portrait (default for LinkedIn multi-image albums, see "Feed cropping" below), or 1500x600 (X Article banner, 5:2).
-2. Background style. When the user asks which background to use, or hasn't said, offer these options with a one-line pitch each and a recommendation for the post:
+2. Background style (asked in "Ask first"). The pitch for each option:
    - **Painting:** public domain landscape (Monet, Cezanne, Renoir). Classic, gallery feel, works for "the story" and founder posts.
    - **Clouds and sky:** a real sky photo. Calm, airy, neutral; good for product, metrics and launch posts where the screenshot should dominate.
    - **Anime sky:** an anime-style sky or landscape from a free wallpaper site (licensed for commercial use), bright blue with puffy cel-shaded clouds. Playful, eye-catching, good for build-in-public and community posts.
+   - **Abstract brand shapes:** soft accent coloured circles and glow, generated in CSS (`.art.shapes`). No licensing to check; the safe stand-in for the 3D renders seen in reference collateral.
+   - **Flat:** no image, a faint accent tint (`.art.flat`). For dense data pieces where nothing should compete with the numbers.
    Mixing styles inside one carousel looks messy: use one style per carousel unless the user asks otherwise.
 3. Overlay. Every time you generate, offer the overlay choice alongside the background (one line each, plus a recommendation), even if the user only asked about the background:
    - **Halftone dots** (default): soft print look, quiet, works with every background.
@@ -60,10 +80,44 @@ Confirm (or infer from context and state the assumption):
    For halftone and text texture, also offer intensity: **subtle** (text `strength` 0.12, halftone dot `fill` 35) or **medium** (text 0.17, halftone 50, the defaults). Use the same overlay and intensity across a carousel. If the user wants to compare, render slide 1 with each option side by side and let them pick before doing the rest. See Step 2.
 4. How it will be posted: single image, multi-image album, or PDF document carousel. This decides the crop rules.
 5. Number of slides and the story each one tells (see "Presenting data" below).
-6. Logo file (transparent PNG preferred). Default to the black version on this light style. If the user has no logo file for the brand, use `wordmark_black.svg` from Step 0 and say it is a placeholder wordmark, not the real logo.
+6. Logo file (transparent PNG preferred). Use the black version in light mode and the white version in dark mode. If the user has no logo file for the brand, use `wordmark_black.svg` (light) or `wordmark_white.svg` (dark) from Step 0 and say it is a placeholder wordmark, not the real logo.
 7. Source screenshots and raw numbers.
 
 Copy rules: no em dashes and no `--` as punctuation anywhere (rewrite the sentence instead), direct human phrasing, brand names in the exact casing from Step 0, plain payment language a merchant would use ("paid to your bank account", not "fiat egress"), and the licence rules above.
+
+## Collateral (one-pagers, rate cards, terms decks)
+
+Built from the same brand kit and tokens as the slides, in `templates/`:
+
+| Template | Size | Use |
+|---|---|---|
+| `onepager.html` | A4 portrait, 1240x1754 | Product one-pager: title, three bento sections, CTA band. |
+| `ratecard.html` | 9:16, 1080x1920 (add sheets for "continued" pages) | Fee sheet: headline with key word, hero fee cards, fee table, footnote. |
+| `deck.html` | 16:9, 1920x1080, one `<section class="sheet wide">` per slide | Cover, commercial terms table, contact slide. |
+
+Copy `templates/*` plus `./kit` (Step 0) into the working folder, replace all sample copy (it is ZepaPay's public page copy, there only so the layout renders), then:
+
+```bash
+python3 <skill dir>/scripts/render.py onepager.html out --theme dark --cues collateral
+```
+
+It writes one PNG per sheet and one PDF of all sheets, and prints `WARNING: content overflows` when any sheet's content runs into its bottom padding or past the edge. Fix every warning by cutting copy first, spacing second. Each sheet must have `id="pN"`.
+
+**What the reference collateral does (EMCD Pay one-pager, EMCD Payments terms deck, EMCD on-ramp rate card), and how the templates use it.** These are cues only: never copy another company's logo, 3D renders, wording, people, colours or numbers.
+
+- **One-pager layout:** big product name top left, a one-line positioning sub under it, logo top right. Then three sections in a fixed order: why partners choose us, key benefits, who it's for. Each is a two-column bento of short tiles. A tile has a 3 to 6 word headline and a lowercase fragment under it ("widget & API, go live in 1 day"). It ends with a full-width CTA band: a two-line hook on the left, one sentence in the middle, and a button on the right.
+- **Tile rhythm:** two tones alternate by row (dark tiles with an image on the right, then light tiles with text only), so the page reads in bands. One full-width tile per section at most, with a short right-aligned tag ("24/7").
+- **Language:** numbers lead the headlines ("600+ cryptocurrencies", "Fees from just 0.5%", "2-4x cheaper", "190+ countries", "go live in 1 day"). Benefit first, then a short proof fragment. No paragraphs, no adjectives without a number or a mechanism. Audience tiles name the segment and list three concrete examples. Our version keeps the same pattern but only with numbers this skill allows (see "Licence and claims"), no em dashes, and no comparative claims ("cheaper than", "fastest") unless the user gives the source.
+- **Positioning:** B2B, merchant-facing, about integration speed, cost, coverage and getting money out. It sells outcomes (go live, convert, get paid), not technology. Match that for every brand, inside each brand's licence rules.
+- **Rate card:** a centred two-line headline whose product word is set in the accent and underlined with a hand-drawn stroke. Logo top right. Hero fee cards come before the table: one tall card for the headline product with volume tiers, then one wide card with three "as low as" figures. Then a table with small uppercase accent headers (method, country, region, price). Each row has a muted sub note for currencies or exclusions and a tier list (tier label in small muted type, % right-aligned). A footnote is marked with an asterisk, and "(continued)" is added to the headline on overflow pages.
+- **Terms deck:** the cover has the title top left, a large hero visual on the right, and a small "Commercial terms for B2B" line bottom left. The terms slide is a dense table with grouped column headers ("Commercial terms" over the product columns, "Transaction fees, % (monthly volume)" over the tier columns), merged cells for shared values, and "Coming soon" or "N/A" written out rather than left blank. The contact slide has a community card with link list on the left and stacked person cards (name, email, QR) on the right.
+- **Mode:** the one-pager and deck are dark (near-black page, charcoal tiles, light tiles for contrast). The rate card is light (white page, pale tinted cards, accent numbers). The templates follow the "Ask first" mode answer, not the reference.
+
+**Writing collateral copy:** tile headline max 6 words, fragment max 10, lowercase fragment unless it starts with a name. One number per tile at most. CTA button is a verb and the brand ("Start settling", "Open an account"), never "Learn more". Tables: write ranges in full ("1,000 to 1,000,000"), use the same unit style throughout, and show every price as the user gave it.
+
+**Design direction in collateral:** `data-cues="skill"` gives bordered cards, uppercase section labels, accent underline bars, an inset accent rule on the CTA, and the vertical guide lines. `data-cues="collateral"` gives flat tiles in two tones, plain headings, a filled accent CTA band and the hand-drawn underline. Same HTML, so switching only takes a re-render.
+
+**Art panels:** `<div class="art painting" style="--img:url(bg1.jpg)">` (same for `clouds`, `anime`) uses an image prepared in Steps 1 and 2. `<div class="art shapes">` and `<div class="art flat">` need no image. In a tile, the art sits on the right 42% and fades into the tile colour, and the tile text is kept to the left 60%.
 
 ## Feed cropping (design for it, don't fight it)
 
@@ -229,6 +283,8 @@ def pastelize(src, out, W=2200):
     Image.composite(Image.new('RGB', (W,H), (120,114,124)), im, ov).save(out, quality=90)
 ```
 
+**Dark mode:** use a dark copy of `pastelize`: replace the light blend with `Image.blend(im, Image.new('RGB', im.size, (20,18,24)), .35)`, then `ImageEnhance.Brightness(im).enhance(.7)`, and draw the dots in `(200,200,210)` at fill 35 instead of `(120,114,124)`. The panel then sits on the near-black page without a bright hole. Text texture in dark mode: same function, blend toward `(20,18,24)` and use the white glyph share at 40% instead of 20%.
+
 Per style: for paintings, use the defaults. For sky photos and anime skies, keep more colour so the blue stays fresh: `Color` 0.8 and the blend 0.12. For the anime sky, also drop the blur to 0.8 so the cel edges stay crisp.
 
 If a signature shows in the visible area, shift `background-position` or zoom with `background-size:auto 125%`.
@@ -301,7 +357,7 @@ If the logo sits on a white background instead, derive alpha from `(255 - blue)/
 
 Start from `templates/slide_square.html`: it already reads `kit/tokens.css` and the wordmark, bleeds the panel and rules off both edges, and keeps every word inside the 132 to 948 safe zone. Copy it per slide, fill the `{{...}}` slots, and change layout only where the slide needs it.
 
-Design tokens: link `kit/tokens.css` from Step 0 and use its variables. Page `#f7f7f7`, ink `#111`, muted `#6b6b6b`, lines `#e4e4e4`, card border `#e3e3e3`, active stat underline `var(--accent)`, stat dots `var(--accent)` / `#111` / `#9a9a9a` (the accent is the only colour on the page; keep red and green for screenshots that already carry them). Accent coloured text or hairlines use `var(--accent-ink)`. Font: Inter (Google Fonts) 500/600/650/700.
+Design tokens: link `kit/tokens.css` from Step 0 and use its variables. It holds a light set on `:root` and a dark set under `[data-theme="dark"]`, so set the mode on `<html>` and never hard-code a colour. Dark: page `#0f0f10`, ink `#f5f5f5`, muted `#9a9a9e`, cards `#1c1c1f`, window chrome dark grey, accent text in `--accent-ink` (the dark-page variant from `accent_ink_dark`). Light values follow. Page `#f7f7f7`, ink `#111`, muted `#6b6b6b`, lines `#e4e4e4`, card border `#e3e3e3`, active stat underline `var(--accent)`, stat dots `var(--accent)` / `#111` / `#9a9a9a` (the accent is the only colour on the page; keep red and green for screenshots that already carry them). Accent coloured text or hairlines use `var(--accent-ink)`. Font: Inter (Google Fonts) 500/600/650/700.
 
 The accent is a highlight, not a theme: the underline bar, the first stat dot, one emphasised word in the headline at most (in `--accent-ink`), the swipe chevron and the wordmark tile. Never tint the page, the card or the window chrome.
 
@@ -317,6 +373,8 @@ Structure per slide:
 For 1080x1350, use the same template with larger type (headline 64px, stat values 50px, sub 27px). For the 1500x600 banner: text block left (eyebrow, 58px headline, stat chips), painted panel with window on the right ~640px wide, logo bottom left, same grid lines and diamonds.
 
 ## Step 5: Render and check
+
+Preferred: `python3 <skill dir>/scripts/render.py s1.html out --theme light` (works for slides and collateral, uses Playwright or falls back to headless Chrome, warns on overflow). The manual Playwright loop below still works for slides.
 
 ```js
 const {chromium} = require('playwright');

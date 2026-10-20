@@ -1,0 +1,39 @@
+<!doctype html>
+<!-- Deck, 16:9 (1920x1080): cover, terms table, contact. SAMPLE COPY is ZepaPay's public page: replace it.
+     Contact names, emails and QR codes only from the user. Generate QR PNGs with the qrcode package if installed. -->
+<html lang="en" data-theme="dark" data-cues="collateral"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="kit/tokens.css"><link rel="stylesheet" href="collateral.css">
+<style>@page{size:1920px 1080px;margin:0}</style></head><body>
+<section class="sheet wide" id="p1">
+  <div class="cover">
+    <div class="left">
+      <div><h1>ZepaPay<br>Settlement</h1></div>
+      <p class="cap">Commercial terms<br>for B2B</p>
+    </div>
+    <div class="art shapes" style="position:relative"><img class="logo logo-light" src="kit/wordmark_black.svg" alt="" style="position:absolute;right:32px;top:28px"><img class="logo logo-dark" src="kit/wordmark_white.svg" alt="" style="position:absolute;right:32px;top:28px"></div>
+  </div>
+</section>
+<section class="sheet wide" id="p2">
+  <div class="top"><h1>Fees and commercial terms</h1><img class="logo logo-light" src="kit/wordmark_black.svg" alt=""><img class="logo logo-dark" src="kit/wordmark_white.svg" alt=""></div>
+  <table>
+    <tr><th>Product</th><th>Direction</th><th>Assets</th><th>Rails</th><th>Ticket, USD</th><th class="vline">Low risk</th><th>High risk</th></tr>
+    <tr><td>Offramp</td><td>Crypto to fiat</td><td>USDT, USDC, BTC, ETH</td><td>SWIFT, SEPA, local rails</td><td>1,000 to 1,000,000<small>high risk: up to 500,000</small></td><td class="vline num" style="text-align:left">1.50%</td><td class="num" style="text-align:left">2.50% + $250 / month</td></tr>
+    <tr><td>Onramp</td><td>Fiat to crypto</td><td>USDT, USDC, BTC, ETH</td><td>Bank transfer in</td><td>1,000 to 1,000,000</td><td class="vline num" style="text-align:left">1.50%</td><td class="num" style="text-align:left">2.50% + $250 / month</td></tr>
+    <tr><td>Conversion</td><td>Either</td><td>All supported</td><td>N/A</td><td>N/A</td><td class="vline" colspan="2">0.15% over the exchange rate, plus bank actual FX</td></tr>
+    <tr><td>Reserve, setup, exit</td><td>Either</td><td>N/A</td><td>N/A</td><td>N/A</td><td class="vline" colspan="2">None</td></tr>
+  </table>
+  <p class="foot-note">Indicative. Which list applies is decided at onboarding and written into your agreement.</p>
+</section>
+<section class="sheet wide" id="p3">
+  <div class="top"><h1>Talk to a named human</h1><img class="logo logo-light" src="kit/wordmark_black.svg" alt=""><img class="logo logo-dark" src="kit/wordmark_white.svg" alt=""></div>
+  <div class="contacts">
+    <div class="tile" style="min-height:520px"><div><div class="tt">ZepaPay on Telegram</div><div class="ts" style="margin-top:14px">Faster than email, most days</div></div><div class="links"><a>Telegram</a><a>Website</a></div><div class="art shapes"></div></div>
+    <div class="stack">
+      <div class="tile alt person"><div><div class="tt">{{Name}}</div><a>{{email}}</a></div><div class="qr"></div></div>
+      <div class="tile alt person"><div><div class="tt">{{Name}}</div><a>{{email}}</a></div><div class="qr"></div></div>
+    </div>
+  </div>
+</section>
+<script>if(location.hash){document.body.classList.add("solo");var s=document.querySelector(location.hash);if(s)s.classList.add("on")}</script>
+</body></html>

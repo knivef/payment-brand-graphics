@@ -4,12 +4,14 @@ Usage: python3 sync_brands.py <path to payment-brand-wireframes checkout>
 
 Reads data/pages.json (name, mark, domain, accent, tagline) and
 data/brand-book.json (licence, status, type), then derives accent_ink: the
-accent darkened until it reads on the light page (#f7f7f7) at 4.5:1 or better.
+accent darkened until it reads on the light page (#f7f7f7) at 4.5:1 or better,
+and accent_ink_dark: the accent lightened until it reads on the dark page (#0f0f10).
 """
 import colorsys, json, sys
 from pathlib import Path
 
 PAGE = (0xf7, 0xf7, 0xf7)
+PAGE_DARK = (0x0f, 0x0f, 0x10)
 
 # Display casing that differs from the wireframe repo. Applied to names and to free text.
 NAME_OVERRIDES = {'Zepapay': 'ZepaPay'}
@@ -35,14 +37,16 @@ def hex2rgb(h):
     h = h.lstrip('#')
     return tuple(int(h[i:i + 2], 16) for i in (0, 2, 4))
 
-def ink(accent):
+def ink(accent, page=PAGE):
+    """Darken (light page) or lighten (dark page) the accent until it reads at 4.5:1."""
     h, l, s = colorsys.rgb_to_hls(*(v / 255 for v in hex2rgb(accent)))
-    while l > 0:
+    step = -.01 if page == PAGE else .01
+    while 0 <= l <= 1:
         rgb = tuple(round(v * 255) for v in colorsys.hls_to_rgb(h, l, s))
-        if contrast(rgb, PAGE) >= 4.5:
+        if contrast(rgb, page) >= 4.5:
             return '#%02x%02x%02x' % rgb
-        l -= .01
-    return '#111111'
+        l += step
+    return '#111111' if page == PAGE else '#f5f5f5'
 
 def main(repo):
     repo = Path(repo)
@@ -53,7 +57,7 @@ def main(repo):
         b = book.get(p.get('book_key', p['name']), {})
         out.append({
             'slug': p['slug'], 'name': fix(p['name']), 'mark': p['mark'], 'domain': p['domain'],
-            'accent': p['accent'], 'accent_fg': p['accent_fg'], 'accent_ink': ink(p['accent']),
+            'accent': p['accent'], 'accent_fg': p['accent_fg'], 'accent_ink': ink(p['accent']), 'accent_ink_dark': ink(p['accent'], PAGE_DARK),
             'tagline': fix(p.get('tagline', '')),
             'licence': b.get('licence') or 'None', 'status': b.get('status'), 'type': b.get('type'),
             'sells': fix(b.get('sells')),

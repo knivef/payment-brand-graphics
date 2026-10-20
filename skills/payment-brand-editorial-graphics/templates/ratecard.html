@@ -1,0 +1,38 @@
+<!doctype html>
+<!-- Rate card, 9:16 portrait (1080x1920), one sheet per page. SAMPLE COPY is ZepaPay's public rate card: replace it.
+     Prices only from the user or the brand's public page; never from internal price lists unless the user says so. -->
+<html lang="en" data-theme="light" data-cues="collateral"><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;650;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="kit/tokens.css"><link rel="stylesheet" href="collateral.css">
+<style>@page{size:1080px 1920px;margin:0}</style></head><body>
+<section class="sheet story" id="p1">
+  <div class="top center">
+    <h1 style="font-size:64px">Our rates for<br><span class="kw">crypto to fiat</span></h1>
+    <img class="logo logo-light" src="kit/wordmark_black.svg" alt=""><img class="logo logo-dark" src="kit/wordmark_white.svg" alt="">
+  </div>
+  <div class="fees">
+    <div class="fee">
+      <h3>Low risk</h3><div class="note">either direction</div>
+      <div class="pct">1.50<small>%</small></div>
+      <div class="lines">No setup fee<br>No monthly fee<br>$1,000 to $1,000,000 per ticket</div>
+    </div>
+    <div class="fee">
+      <h3>High risk</h3><div class="note">either direction</div>
+      <div class="pct">2.50<small>%</small></div>
+      <div class="lines">plus $250 per month<br>$1,000 to $500,000 per ticket<br>Short KYB at onboarding</div>
+    </div>
+  </div>
+  <table>
+    <tr><th>What</th><th>Detail</th><th style="text-align:right">Price</th></tr>
+    <tr><td>Conversion</td><td>Over the exchange rate<small>you see it before you confirm</small></td><td class="num">0.15%</td></tr>
+    <tr><td>Bank FX</td><td>Fiat leg<small>passed through at cost</small></td><td class="num">Bank actual</td></tr>
+    <tr><td>Rolling reserve</td><td>Either direction</td><td class="num">None</td></tr>
+    <tr><td>Setup</td><td>Offramp lists</td><td class="num">None</td></tr>
+    <tr><td>Exit fee</td><td>When you leave</td><td class="num">None</td></tr>
+    <tr><td>Assets</td><td>USDT, USDC, BTC, ETH<small>major chains</small></td><td class="num">Same rate</td></tr>
+    <tr><td>Payout rails</td><td>SWIFT, SEPA, local rails<small>SEPA same or next business day, SWIFT two to three</small></td><td class="num">Included</td></tr>
+  </table>
+  <p class="foot-note">*Which list applies is decided at onboarding and written into your agreement. Indicative only: your written quote is the binding number. zepapay.com</p>
+</section>
+<script>if(location.hash){document.body.classList.add("solo");var s=document.querySelector(location.hash);if(s)s.classList.add("on")}</script>
+</body></html>
