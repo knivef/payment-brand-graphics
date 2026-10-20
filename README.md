@@ -1,43 +1,57 @@
 # payment-brand-graphics
 
-Claude skills for social graphics for the payment brands. Private.
+Claude skills for the payment brands' marketing graphics. Private.
 
 ## Skills
 
-| Skill | What it makes |
-|---|---|
-| [`payment-brand-editorial-graphics`](skills/payment-brand-editorial-graphics/SKILL.md) | Editorial slides (stat card, screenshot in a macOS window over a painting, sky, anime sky or abstract shapes) and sales collateral (A4 one-pager, 9:16 rate card, 16:9 terms deck), in light or dark mode, per brand. It asks for output, mode, design direction and background before generating. |
+| Skill | Use it for | Asks first |
+|---|---|---|
+| [`payment-brand-social-graphics`](skills/payment-brand-social-graphics/SKILL.md) | LinkedIn and X posts, albums, PDF carousels, X banners: stat cards and a screenshot in a macOS window over a painting, sky, anime sky or abstract shapes. | Format, mode, design direction, background (then overlay if needed) |
+| [`payment-brand-collateral`](skills/payment-brand-collateral/SKILL.md) | Sales documents: A4 one-pager, 9:16 rate card, 16:9 terms deck. PNG per page plus PDF. | Output, mode, design direction, background (then overlay if needed) |
 
-It is a brand-aware clone of `light-editorial-graphics` in [knivef/creatives](https://github.com/knivef/creatives). Same look and steps, plus brand colours, placeholder wordmarks, and licence and claims rules for each brand.
+Both cover ZepaPay (default), Secure Payment Services, Sepa Mint, Offrampr, Ape Card, Pure Labs, AltPay, Swipe Wire Pay, Card Payz, Fiat Pay and Onrampr, in light or dark mode. Only ZepaPay and Secure Payment Services hold a licence (UAE PSP); both skills block licence wording for every other brand.
+
+The social skill is a brand-aware clone of `light-editorial-graphics` in [knivef/creatives](https://github.com/knivef/creatives). The collateral skill takes its layout cues from reference sales collateral (bento one-pager, rate card, terms deck).
 
 ## Layout
 
 ```
-skills/payment-brand-editorial-graphics/
-  SKILL.md                  the skill
-  brands.json               one record per brand: name, mark, domain, accent, accent_ink, licence, status, type
-  scripts/brand_kit.py      writes light/dark tokens.css + wordmark SVGs for one brand
-  scripts/sync_brands.py    rebuilds brands.json from knivef/payment-brand-wireframes
-  scripts/render.py         renders any template to PNG per page + PDF, light or dark, warns on overflow
-  templates/slide_square.html  1080x1080 starter slide
-  templates/onepager.html   A4 one-pager (bento sections + CTA band)
-  templates/ratecard.html   9:16 rate card (fee cards + table)
-  templates/deck.html       16:9 deck (cover, terms table, contact)
-  templates/collateral.css  shared collateral styles: light/dark, "skill" or "collateral" design cues
+shared/                       source of truth for everything both skills use
+  brands.json                 one record per brand: name, mark, domain, accent, accent_ink(_dark), licence, status, type
+  reference/brand-rules.md    brand data, licence and claims rules, copy rules, logo variants
+  reference/backgrounds.md    background options, sourcing, halftone and text-texture filters, dark-mode filter
+  scripts/brand_kit.py        writes light/dark tokens.css + wordmark SVGs for one brand
+  scripts/render.py           renders any template to PNG per page + PDF, light or dark, warns on overflow
+  scripts/sync_brands.py      rebuilds brands.json from knivef/payment-brand-wireframes (maintenance only)
+skills/payment-brand-social-graphics/
+  SKILL.md, templates/slide_square.html, + bundled copies of shared files
+skills/payment-brand-collateral/
+  SKILL.md, templates/{collateral.css, onepager.html, ratecard.html, deck.html}, + bundled copies
+scripts/bundle.py             copies shared/ into each skill; --check fails if a copy is stale
 ```
 
-## Brands
+Each skill folder is self-contained, so either can be installed or uploaded on its own.
 
-ZepaPay (default), Secure Payment Services, Sepa Mint, Offrampr, Ape Card, Pure Labs, AltPay, Swipe Wire Pay, Card Payz, Fiat Pay, Onrampr. Only ZepaPay and Secure Payment Services hold a licence (UAE PSP); the skill blocks licence wording for every other brand.
+## Editing
 
-## Updating brands
-
-`brands.json` is generated. When a brand is added or changes accent in the wireframe repo:
+Edit shared files in `shared/`, never the copies under `skills/`, then:
 
 ```bash
-python3 skills/payment-brand-editorial-graphics/scripts/sync_brands.py "/path/to/payment-brand-wireframes"
+python3 scripts/bundle.py
 ```
 
-## Installing the skill
+```bash
+python3 scripts/bundle.py --check
+```
 
-Copy or symlink `skills/payment-brand-editorial-graphics` into `~/.claude/skills/`, or zip the folder and upload it as a skill in claude.ai.
+When a brand is added or changes accent in the wireframe repo:
+
+```bash
+python3 shared/scripts/sync_brands.py "/path/to/payment-brand-wireframes"
+```
+
+Then run `python3 scripts/bundle.py` again.
+
+## Installing
+
+Copy or symlink each folder under `skills/` into `~/.claude/skills/`, or zip a skill folder and upload it as a skill in claude.ai.

@@ -1,6 +1,7 @@
 <!doctype html>
-<!-- Starter 1080x1080 slide. Copy next to ./kit (from brand_kit.py), bg.jpg (Steps 1-2) and shot.png. Replace every {{...}}. Set data-theme on <html> (light|dark) or pass --theme to render.py. -->
-<html data-theme="light"><head><meta charset="utf-8">
+<!-- Starter 1080x1080 slide. Copy next to ./kit (from brand_kit.py), bg.jpg (Steps 1-2) and shot.png. Replace every {{...}}. Set data-theme (light|dark) and data-cues (skill|collateral) on <html>, or pass --theme / --cues to render.py.
+     Panel background: style="background-image:url(bg.jpg)", or class="panel shapes" / "panel flat" for no image. -->
+<html data-theme="light" data-cues="skill"><head><meta charset="utf-8">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;650;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="kit/tokens.css">
 <style>
@@ -27,7 +28,7 @@ h1 em{font-style:normal;color:var(--accent-ink)}
 .lab i{width:9px;height:9px;border-radius:50%;background:var(--accent)}
 .stat:nth-child(2) .lab i{background:var(--dot-2)} .stat:nth-child(3) .lab i{background:var(--dot-3)}
 .val{font-size:38px;font-weight:600;letter-spacing:-.03em;margin-top:6px}
-.panel{flex:1;min-height:0;margin:26px -132px 0;padding:22px 132px;background:url(bg.jpg) center/cover;display:flex;align-items:center;justify-content:center}
+.panel{flex:1;min-height:0;margin:26px -132px 0;padding:22px 132px;background:center/cover no-repeat;display:flex;align-items:center;justify-content:center}
 .win{width:100%;border-radius:12px;overflow:hidden;background:var(--card);box-shadow:0 24px 60px -10px rgba(30,20,40,.45),0 0 0 1px rgba(0,0,0,.12)}
 .bar{height:44px;background:var(--chrome);display:flex;align-items:center;padding:0 16px;position:relative}
 .bar span{width:13px;height:13px;border-radius:50%;margin-right:8px}
@@ -36,6 +37,27 @@ h1 em{font-style:normal;color:var(--accent-ink)}
 .foot{display:flex;justify-content:space-between;align-items:center;margin-top:28px;font-size:15px;color:var(--muted)}
 .foot img{height:36px}
 .logo-dark,[data-theme="dark"] .logo-light{display:none}[data-theme="dark"] .logo-dark{display:inline}
+
+/* No-image backgrounds */
+.panel.flat{background:color-mix(in srgb,var(--accent) 14%,var(--page))}
+.panel.shapes{background:
+  radial-gradient(circle at 12% 22%,color-mix(in srgb,var(--accent) 85%,#fff) 0 7%,transparent 7.5%),
+  radial-gradient(circle at 88% 74%,color-mix(in srgb,var(--accent) 55%,transparent) 0 14%,transparent 14.5%),
+  radial-gradient(circle at 94% 16%,color-mix(in srgb,var(--ink) 16%,transparent) 0 8%,transparent 8.5%),
+  radial-gradient(ellipse at 50% 50%,color-mix(in srgb,var(--accent) 20%,transparent),transparent 70%),var(--page)}
+/* Design direction "collateral": flat two-tone tiles, no grid, filled hero stat, hand-drawn underline */
+[data-cues="collateral"] .guide,[data-cues="collateral"] .dia,[data-cues="collateral"] .head::after,[data-cues="collateral"] .foot::before{display:none}
+[data-cues="collateral"] .stats{background:none;border:0;gap:10px}
+[data-cues="collateral"] .stat{background:var(--card);border:0;border-radius:14px}
+[data-cues="collateral"] .stat:first-child{background:var(--accent);box-shadow:none}
+[data-cues="collateral"] .stat:first-child .lab,[data-cues="collateral"] .stat:first-child .val{color:var(--accent-fg)}
+[data-cues="collateral"] .stat:first-child .lab i{background:var(--accent-fg)}
+[data-cues="collateral"] .panel{margin-left:0;margin-right:0;padding:22px;border-radius:16px}
+[data-cues="collateral"] h1 em{position:relative}
+[data-cues="collateral"] h1 em::after{content:"";position:absolute;left:-2%;right:-4%;bottom:-.16em;height:.22em;background:var(--accent-ink);
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 20' preserveAspectRatio='none'%3E%3Cpath d='M3 14 C 40 6, 120 4, 197 9' fill='none' stroke='black' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E") center/100% 100% no-repeat;
+          mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 20' preserveAspectRatio='none'%3E%3Cpath d='M3 14 C 40 6, 120 4, 197 9' fill='none' stroke='black' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E") center/100% 100% no-repeat}
+[data-cues="collateral"] .stat .lab{color:var(--muted)}
 </style></head><body><div class="page">
 <div class="guide" style="left:120px"></div><div class="guide" style="left:960px"></div>
 <div class="head"><span class="dia dl"></span><span class="dia dr"></span>
@@ -47,7 +69,7 @@ h1 em{font-style:normal;color:var(--accent-ink)}
   <div class="stat"><div class="lab"><i></i>{{LABEL 2}}</div><div class="val">{{VALUE 2}}</div></div>
   <div class="stat"><div class="lab"><i></i>{{LABEL 3}}</div><div class="val">{{VALUE 3}}</div></div>
 </div>
-<div class="panel"><div class="win">
+<div class="panel" style="background-image:url(bg.jpg)"><div class="win">
   <div class="bar"><span style="background:#ff5f57"></span><span style="background:#febc2e"></span><span style="background:#28c840"></span><div class="wtitle">{{BRAND}} · {{SOURCE}}</div></div>
   <img src="shot.png" alt="">
 </div></div>

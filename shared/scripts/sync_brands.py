@@ -1,6 +1,7 @@
 """Rebuild brands.json from the payment-brand-wireframes repo.
 
-Usage: python3 sync_brands.py <path to payment-brand-wireframes checkout>
+Usage: python3 shared/scripts/sync_brands.py <path to payment-brand-wireframes checkout>
+       then python3 scripts/bundle.py to copy the new brands.json into every skill.
 
 Reads data/pages.json (name, mark, domain, accent, tagline) and
 data/brand-book.json (licence, status, type), then derives accent_ink: the
